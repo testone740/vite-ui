@@ -1,33 +1,41 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ReactGrid } from '@silevis/reactgrid';
 import '@silevis/reactgrid/styles.css';
 import { CellTemplates } from './cells';
+
+const departmentOptions = [
+  { label: 'None', value: undefined },
+  { label: 'HR', value: 'hr' },
+  { label: 'Sales', value: 'sales' },
+  { label: 'Marketing', value: 'marketing' },
+  { label: 'Finance', value: 'finance' },
+  { label: 'IT', value: 'it' },
+];
 
 const getEmployees = () => [
   {
     id: 11,
     fName: 'Thomas',
     lName: 'Brown',
-    hiredAt: new Date('01/01/2020'),
     dept: 'hr',
+    hiredAt: new Date('01/01/2020'),
   },
   {
     id: 12,
     fName: 'Susie',
     lName: 'Lane',
-    hiredAt: new Date('10-15-2020'),
     dept: 'sales',
+    hiredAt: new Date('10-15-2020'),
   },
-  // { id: 13, fName: 'John', lName: 'Doe', hiredAt: '', dept: '' },
-  // { id: '', fName: '12-15-2020', lName: '12/16/2020', hiredAt: '', dept: '' },
+  { id: '', fName: '', lName: '', dept: undefined, hiredAt: '' },
 ];
 
 const getColumns = () => [
   { columnId: 'id', width: 100 },
   { columnId: 'fName', width: 150 },
   { columnId: 'lName', width: 150 },
-  { columnId: 'hiredAt', width: 150 },
   { columnId: 'dept', width: 150 },
+  { columnId: 'hiredAt', width: 150 },
 ];
 
 const headerRow = {
@@ -36,18 +44,10 @@ const headerRow = {
     { type: 'header', text: 'Emp. ID' },
     { type: 'header', text: 'First Name' },
     { type: 'header', text: 'Last Name' },
-    { type: 'header', text: 'Hire Date' },
     { type: 'header', text: 'Department' },
+    { type: 'header', text: 'Hire Date' },
   ],
 };
-
-const departmentOptions = [
-  { label: 'HR', value: 'hr' },
-  { label: 'Sales', value: 'sales' },
-  { label: 'Marketing', value: 'marketing' },
-  { label: 'Finance', value: 'finance' },
-  { label: 'IT', value: 'it' },
-];
 
 const getRows = (items) => [
   headerRow,
@@ -59,24 +59,24 @@ const getRows = (items) => [
         { type: 'number', value: item.id },
         { type: 'text', text: item.fName },
         { type: 'text', text: item.lName },
-        { type: 'date', date: item.hiredAt },
         {
           type: 'dropdown',
           values: departmentOptions,
           isOpen: item.isOpen,
           selectedValue: item.dept,
         },
+        { type: 'date', date: item.hiredAt },
       ],
     };
   }),
 ];
 
 const applyCellChanges = (changes, prevRows) => {
-  console.log('changes', changes);
-  console.log('prevRows', prevRows);
+  // console.log('changes', changes);
+  // console.log('prevRows', prevRows);
 
   changes.forEach((change) => {
-    const { rowId, columnId, newCell } = change;
+    const { rowId, columnId, previousCell, newCell } = change;
 
     if (newCell.type === 'number') {
       prevRows[rowId][columnId] = newCell.value;
@@ -91,7 +91,7 @@ const applyCellChanges = (changes, prevRows) => {
       prevRows[rowId].isOpen = newCell.isOpen;
       if (
         newCell.selectedValue &&
-        newCell.selectedValue !== change.previousCell.selectedValue
+        newCell.selectedValue !== previousCell.selectedValue
       ) {
         prevRows[rowId].dept = newCell.selectedValue;
       }
@@ -101,10 +101,11 @@ const applyCellChanges = (changes, prevRows) => {
   return [...prevRows];
 };
 
-const CustomTable = () => {
+const CustomReactGrid = () => {
   const [employees, setEmployees] = useState(getEmployees());
-  const [columns] = useState(getColumns());
+  // console.log('employees', employees);
 
+  const [columns] = useState(getColumns());
   const rows = getRows(employees);
 
   const handleChanges = (changes) => {
@@ -155,4 +156,4 @@ const CustomTable = () => {
   );
 };
 
-export default CustomTable;
+export default CustomReactGrid;
