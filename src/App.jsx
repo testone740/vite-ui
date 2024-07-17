@@ -1,3 +1,4 @@
+import React from 'react';
 import MuiBasicContainer from './components/layout/MuiBasicContainer';
 
 const App = () => {

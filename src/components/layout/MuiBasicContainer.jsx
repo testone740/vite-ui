@@ -9,7 +9,7 @@ const MuiBasicContainer = () => {
     <>
       <CssBaseline />
       <Container maxWidth="lg">
-        <Box sx={{ bgcolor: '#cfe8fc', height: '50rem' }}>
+        <Box sx={{ bgcolor: 'white', height: '50rem' }}>
           <MuiGridLayout />
         </Box>
       </Container>
