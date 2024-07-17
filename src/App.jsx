@@ -1,7 +1,9 @@
+import MuiBasicContainer from './components/layout/MuiBasicContainer';
+
 const App = () => {
   return (
     <>
-      <h1>Vite App</h1>
+      <MuiBasicContainer />
     </>
   );
 };
