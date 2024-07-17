@@ -1,8 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
+import { Box, Grid, Paper } from '@mui/material';
+// import FlagCellDemo from '../reactGrid/demo/FlagCellDemo';
+import DropDownDemo from '../reactGrid/demo/DropDownDemo';
+import DateTable from '../reactGrid/DateTable';
+import DropDownTable from '../reactGrid/DropDownTable';
+import CustomTable from '../reactGrid/CustomTable';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -15,17 +18,17 @@ const Item = styled(Paper)(({ theme }) => ({
 const MuiGridLayout = () => {
   return (
     <>
-      <h1>Grid</h1>
+      <h1>React Grid</h1>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={4}>
-          <Grid item xs>
-            <Item>Left</Item>
+        <Grid container spacing={2}>
+          {/* <Grid item xs={12}>
+            <DropDownDemo />
+          </Grid> */}
+          <Grid item xs={12}>
+            <DropDownTable />
           </Grid>
-          <Grid item xs={6}>
-            <Item>Middle</Item>
-          </Grid>
-          <Grid item xs>
-            <Item>Right</Item>
+          <Grid item xs={12}>
+            <CustomTable />
           </Grid>
         </Grid>
       </Box>
