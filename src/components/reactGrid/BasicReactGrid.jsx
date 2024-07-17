@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState } from 'react';
 import { ReactGrid } from '@silevis/reactgrid';
 import '@silevis/reactgrid/styles.css';
@@ -61,7 +60,7 @@ const applyChangesToPeople = (changes, prevPeople) => {
   return [...prevPeople];
 };
 
-const ReactGridTable = () => {
+const BasicReactGrid = () => {
   const [people, setPeople] = useState(getPeople());
   const [columns] = useState(getColumns());
 
@@ -110,4 +109,4 @@ const ReactGridTable = () => {
   );
 };
 
-export default ReactGridTable;
+export default BasicReactGrid;

@@ -18,8 +18,8 @@
         "dbaeumer.vscode-eslint",
         "eamodio.gitlens",
         "esbenp.prettier-vscode",
-        "codeium.codeium",
-        "codium.codium" // Codiumate, CodiumAI
+        "codeium.codeium"
+        // "codium.codium" // Codiumate, CodiumAI
       ],
       // Set *default* container specific settings.json values on container create.
       "settings": {
