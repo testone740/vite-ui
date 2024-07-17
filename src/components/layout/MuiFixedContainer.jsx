@@ -9,7 +9,7 @@ const MuiFixedContainer = () => {
     <>
       <CssBaseline />
       <Container fixed>
-        <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }}>
+        <Box sx={{ bgcolor: '#white', height: '100vh' }}>
           <MuiGridLayout />
         </Box>
       </Container>

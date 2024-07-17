@@ -1,8 +1,7 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ReactGrid } from '@silevis/reactgrid';
 import '@silevis/reactgrid/styles.css';
-import { DateCellTemplate } from './cells/DateCellTemplate';
+import { CellTemplates } from './cells';
 
 const getEmployees = () => [
   {
@@ -19,8 +18,8 @@ const getEmployees = () => [
     hiredAt: new Date('10-15-2020'),
     dept: 'sales',
   },
-  { id: 13, fName: 'John', lName: 'Doe', hiredAt: '', dept: '' },
-  { id: '', fName: '12-15-2020', lName: '12/16/2020', hiredAt: '', dept: '' },
+  // { id: 13, fName: 'John', lName: 'Doe', hiredAt: '', dept: '' },
+  // { id: '', fName: '12-15-2020', lName: '12/16/2020', hiredAt: '', dept: '' },
 ];
 
 const getColumns = () => [
@@ -72,31 +71,29 @@ const getRows = (items) => [
   }),
 ];
 
-const applyChangesToRows = (changes, prevRows) => {
-  // console.log('changes', changes);
+const applyCellChanges = (changes, prevRows) => {
+  console.log('changes', changes);
+  console.log('prevRows', prevRows);
 
   changes.forEach((change) => {
-    const rowId = change.rowId;
-    const columnId = change.columnId;
+    const { rowId, columnId, newCell } = change;
 
-    if (change.newCell.type === 'number') {
-      prevRows[rowId][columnId] = change.newCell.value;
+    if (newCell.type === 'number') {
+      prevRows[rowId][columnId] = newCell.value;
     }
-    if (change.newCell.type === 'text') {
-      prevRows[rowId][columnId] = change.newCell.text;
+    if (newCell.type === 'text') {
+      prevRows[rowId][columnId] = newCell.text;
     }
-    if (change.newCell.type === 'date') {
-      prevRows[rowId][columnId] = new Date(change.newCell.value);
+    if (newCell.type === 'date') {
+      prevRows[rowId][columnId] = new Date(newCell.value);
     }
     if (change.type === 'dropdown' && change.columnId === 'dept') {
-      const recIndex = change.rowId;
-      prevRows[recIndex].isOpen = change.newCell.isOpen;
-
+      prevRows[rowId].isOpen = newCell.isOpen;
       if (
-        change.newCell.selectedValue &&
-        change.newCell.selectedValue !== change.previousCell.selectedValue
+        newCell.selectedValue &&
+        newCell.selectedValue !== change.previousCell.selectedValue
       ) {
-        prevRows[recIndex].dept = change.newCell.selectedValue;
+        prevRows[rowId].dept = newCell.selectedValue;
       }
     }
   });
@@ -111,7 +108,7 @@ const CustomTable = () => {
   const rows = getRows(employees);
 
   const handleChanges = (changes) => {
-    setEmployees((prevItems) => applyChangesToRows(changes, prevItems));
+    setEmployees((prevItems) => applyCellChanges(changes, prevItems));
   };
 
   const handleContextMenu = (
@@ -147,7 +144,7 @@ const CustomTable = () => {
       <ReactGrid
         columns={columns}
         rows={rows}
-        customCellTemplates={{ date: new DateCellTemplate() }}
+        customCellTemplates={CellTemplates}
         onCellsChanged={handleChanges}
         onContextMenu={handleContextMenu}
         enableRowSelection

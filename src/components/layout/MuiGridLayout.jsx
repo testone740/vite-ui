@@ -18,8 +18,8 @@ const Item = styled(Paper)(({ theme }) => ({
 const MuiGridLayout = () => {
   return (
     <>
-      <h1>React Grid</h1>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ margin: 2, width: '500px' }}>
+        <h1>React Grid</h1>
         <Grid container spacing={2}>
           {/* <Grid item xs={12}>
             <DropDownDemo />
